@@ -1,0 +1,24 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: db-obs-ecommerce-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+    ports:
+      - "3308:3306"
+    networks:
+      - obs-ecommerce
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: db-obs-ecommerce-mysql
+    ports:
+      - "8888:80"
+    networks:
+      - obs-ecommerce
+
+networks:
+  obs-ecommerce:
+    driver: bridge
