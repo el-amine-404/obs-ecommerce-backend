@@ -51,6 +51,9 @@ public class Product {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 50)
-    public ProductStatus status;
+    private ProductStatus status;
+
+    @OneToOne(mappedBy = "product")
+    private ShoppingCartItem shoppingCartItem;
 
 }
