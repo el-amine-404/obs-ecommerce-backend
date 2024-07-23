@@ -48,4 +48,11 @@ public class Agent {
 
     @Column(name = "created_on", nullable = false)
     private LocalDateTime createdOn;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "company_id")
+    private Company company;
+
+    @OneToMany(mappedBy = "agent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ShoppingCart> shoppingCarts = new ArrayList<>();
 }

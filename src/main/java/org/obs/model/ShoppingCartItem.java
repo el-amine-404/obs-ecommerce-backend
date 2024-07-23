@@ -27,5 +27,13 @@ public class ShoppingCartItem {
 
     @Column(name = "price", nullable = false, length = 50)
     private double price;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shopping_cart_id")
+    private ShoppingCart shoppingCart;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
+    private Product product;
     
 }

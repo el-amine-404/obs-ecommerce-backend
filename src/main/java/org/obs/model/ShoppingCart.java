@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -34,5 +36,12 @@ public class ShoppingCart {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 50)
     private ShoppingCartStatus status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "agent_id")
+    private Agent agent;
+
+    @OneToMany(mappedBy = "shoppingCart", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ShoppingCartItem> shoppingCartItems = new ArrayList<>();
     
 }

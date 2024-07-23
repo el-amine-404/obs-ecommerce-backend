@@ -29,5 +29,8 @@ public class Company {
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
     private List<Addresse> addresses = new ArrayList<>();
 
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
+    private List<Agent> agents = new ArrayList<>();
+
 }
 

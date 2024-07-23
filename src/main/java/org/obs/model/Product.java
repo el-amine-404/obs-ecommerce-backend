@@ -53,4 +53,7 @@ public class Product {
     @Column(name = "status", nullable = false, length = 50)
     private ProductStatus status;
 
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private ShoppingCartItem shoppingCartItem;
+
 }
