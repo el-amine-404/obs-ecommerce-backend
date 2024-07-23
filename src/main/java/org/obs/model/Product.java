@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.util.UUID;
 
 @Entity
-@Table(name = "product", schema = "obs_app")
+@Table(name = "product", schema = "obs_ecommerce")
 @Getter
 @Setter
 @NoArgsConstructor
