@@ -27,7 +27,7 @@ public class Company {
     private String email;
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
-    private List<Adresse> addresses = new ArrayList<>();
+    private List<Addresse> addresses = new ArrayList<>();
 
 }
 
