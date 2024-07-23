@@ -53,7 +53,4 @@ public class Product {
     @Column(name = "status", nullable = false, length = 50)
     private ProductStatus status;
 
-    @OneToOne(mappedBy = "product")
-    private ShoppingCartItem shoppingCartItem;
-
 }
