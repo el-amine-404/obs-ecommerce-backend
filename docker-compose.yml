@@ -11,11 +11,11 @@ services:
 
   phpmyadmin:
     image: phpmyadmin
-    container_name: phpmyadmin
+    container_name: phpmyadmin-obs-ecommerce
     environment:
       PMA_HOST: db-obs-ecommerce-mysql
     ports:
-      - "8888:80"
+      - "81:80"
     networks:
       - obs-ecommerce
 
