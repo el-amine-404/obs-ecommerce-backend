@@ -17,11 +17,10 @@ import java.util.UUID;
 public class ShoppingCartItem {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @Column(name = "shopping_cart_item_id", nullable = false)
-    private UUID id;
-
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "shopping_cart_item_id")
+    private Long id;
+    
     @Column(name = "quantity", nullable = false, length = 50)
     private int quantity;
 

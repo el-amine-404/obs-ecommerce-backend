@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Entity
 @Table(name = "adresse", schema = "obs_ecommerce")
 @Getter
@@ -18,8 +16,9 @@ import java.util.UUID;
 public class Addresse {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "addresse_id")
+    private Long id;
 
     @Column(name = "street_number", nullable = false, length = 50)
     private int streetNumber;

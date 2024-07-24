@@ -9,7 +9,6 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "shopping_cart", schema = "obs_ecommerce")
@@ -19,10 +18,10 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ShoppingCart {
 
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @Column(name = "shopping_cart_id", nullable = false)
-    private UUID id;
+    @Id        
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "shopping_cart_id")
+    private Long id;
 
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;

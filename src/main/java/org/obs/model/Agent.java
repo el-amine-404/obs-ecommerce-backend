@@ -1,7 +1,6 @@
 package org.obs.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,6 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "agent", schema = "obs_ecommerce")
@@ -21,8 +19,9 @@ import java.util.UUID;
 public class Agent {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "agent_id")
+    private Long id;
 
     @Column(name = "email", nullable = false, length = 50)
     private String email;

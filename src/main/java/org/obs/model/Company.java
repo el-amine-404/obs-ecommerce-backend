@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "company", schema = "obs_ecommerce")
@@ -19,8 +18,9 @@ import java.util.UUID;
 public class Company {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "company_id")
+    private Long id;
 
     @Column(name = "name", nullable = false, length = 50)
     private String name;
