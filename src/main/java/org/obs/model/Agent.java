@@ -49,6 +49,10 @@ public class Agent {
     @Column(name = "created_on", nullable = false)
     private LocalDateTime createdOn;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false, length = 50)
+    private Role role;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "company_id")
     private Company company;
