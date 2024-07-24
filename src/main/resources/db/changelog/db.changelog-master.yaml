@@ -352,4 +352,97 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: agent
             referencedTableSchemaName: obs_ecommerce
-
+  - changeSet:
+      id: 1721811141623-7
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: phone_number
+                  type: VARCHAR(50)
+            schemaName: obs_ecommerce
+            tableName: company
+  - changeSet:
+      id: 1721811141623-8
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addNotNullConstraint:
+            columnDataType: VARCHAR(50)
+            columnName: phone_number
+            schemaName: obs_ecommerce
+            tableName: company
+  - changeSet:
+      id: 1721811141623-9
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropColumn:
+            columnName: phoneNumber
+            schemaName: obs_ecommerce
+            tableName: company
+  - changeSet:
+      id: 1721811141623-1
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - modifyDataType:
+            columnName: description
+            newDataType: VARCHAR(50)
+            schemaName: obs_ecommerce
+            tableName: company
+  - changeSet:
+      id: 1721811141623-2
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addNotNullConstraint:
+            columnDataType: VARCHAR(50)
+            columnName: description
+            schemaName: obs_ecommerce
+            tableName: company
+            validate: true
+  - changeSet:
+      id: 1721811141623-3
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - modifyDataType:
+            columnName: email
+            newDataType: VARCHAR(50)
+            schemaName: obs_ecommerce
+            tableName: company
+  - changeSet:
+      id: 1721811141623-4
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addNotNullConstraint:
+            columnDataType: VARCHAR(50)
+            columnName: email
+            schemaName: obs_ecommerce
+            tableName: company
+            validate: true
+  - changeSet:
+      id: 1721811141623-5
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - modifyDataType:
+            columnName: name
+            newDataType: VARCHAR(50)
+            schemaName: obs_ecommerce
+            tableName: company
+  - changeSet:
+      id: 1721811141623-6
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addNotNullConstraint:
+            columnDataType: VARCHAR(50)
+            columnName: name
+            schemaName: obs_ecommerce
+            tableName: company
+            validate: true

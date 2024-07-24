@@ -21,9 +21,17 @@ public class Company {
     @Id
     @GeneratedValue(generator = "UUID")
     private UUID id;
+
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
+
+    @Column(name = "description", nullable = false, length = 50)
     private String description;
+
+    @Column(name = "phone_number", nullable = false, length = 50)
     private String phoneNumber;
+
+    @Column(name = "email", nullable = false, length = 50)
     private String email;
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
