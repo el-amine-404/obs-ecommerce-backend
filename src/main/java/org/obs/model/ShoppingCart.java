@@ -34,7 +34,7 @@ public class ShoppingCart {
     @Column(name = "status", nullable = false, length = 50)
     private ShoppingCartStatus status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "agent_id")
     private Agent agent;
 

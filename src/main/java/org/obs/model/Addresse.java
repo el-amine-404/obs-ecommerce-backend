@@ -36,7 +36,7 @@ public class Addresse {
     @Column(name = "country", nullable = false, length = 50)
     private CountryCode country;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
 }

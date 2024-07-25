@@ -53,7 +53,7 @@ public class Agent {
     @Column(name = "role", nullable = false, length = 50)
     private Role role;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
 
