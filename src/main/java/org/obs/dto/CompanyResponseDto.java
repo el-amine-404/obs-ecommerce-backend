@@ -31,8 +31,8 @@ public class CompanyDto {
     @Email(message = "Please provide a valid email address")
     private String email;
     
-    private List<AdresseDto> addresses = new ArrayList<>();
+    private List<AddressResponseDto> addresses = new ArrayList<>();
 
-    private List<AgentDto> agents = new ArrayList<>();
+    private List<AgentResponseDto> agents = new ArrayList<>();
 
 }

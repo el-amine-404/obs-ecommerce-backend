@@ -371,4 +371,14 @@ databaseChangeLog:
             referencedColumnNames: agent_id
             referencedTableName: agent
             referencedTableSchemaName: obs_ecommerce
+  - changeSet:
+      id: 1721908488590-1
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropNotNullConstraint:
+            columnDataType: datetime
+            columnName: confirmation_date
+            schemaName: obs_ecommerce
+            tableName: shopping_cart
 
