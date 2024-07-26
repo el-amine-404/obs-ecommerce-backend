@@ -22,17 +22,17 @@ public class ShoppingCart {
     private Long id;
 
     @Column(name = "creation_date", nullable = false)
-    private LocalDateTime creationDate;
+    private LocalDateTime creationDate = LocalDateTime.now();
 
     @Column(name = "confirmation_date")
     private LocalDateTime confirmationDate;
 
     @Column(name = "total_price", nullable = false)
-    private double totalPrice;
+    private double totalPrice = 0;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 50)
-    private ShoppingCartStatus status;
+    private ShoppingCartStatus status = ShoppingCartStatus.NEW;
 
     @ManyToOne
     @JoinColumn(name = "agent_id")

@@ -3,7 +3,6 @@ package org.obs.dto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.obs.model.Agent;
 import org.obs.model.ShoppingCart;
 import org.obs.model.ShoppingCartItem;
 import org.obs.model.ShoppingCartStatus;
@@ -17,7 +16,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShoppingCartDto {
+public class ShoppingCartResponseDto {
 
     @NotNull(message = "Id is required")
     private Long id;
@@ -34,7 +33,7 @@ public class ShoppingCartDto {
     @Builder.Default
     private List<ShoppingCartItem> shoppingCartItems = new ArrayList<>();
 
-    public static ShoppingCart toEntity(ShoppingCartDto dto){
+    public static ShoppingCart toEntity(ShoppingCartResponseDto dto){
         return ShoppingCart.builder()
                 .id(dto.getId())
                 .creationDate(dto.getCreationDate())
@@ -45,8 +44,8 @@ public class ShoppingCartDto {
                 .build();
     }
 
-    public static ShoppingCartDto ofEntity(ShoppingCart entity){
-        return ShoppingCartDto.builder()
+    public static ShoppingCartResponseDto ofEntity(ShoppingCart entity){
+        return ShoppingCartResponseDto.builder()
                 .id(entity.getId())
                 .creationDate(entity.getCreationDate())
                 .confirmationDate(entity.getConfirmationDate())

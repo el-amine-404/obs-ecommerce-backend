@@ -1,7 +1,7 @@
 package org.obs.mapper;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import org.obs.dto.ShoppingCartDto;
+import org.obs.dto.ShoppingCartResponseDto;
 import org.obs.model.ShoppingCart;
 
 import java.util.Collections;
@@ -10,24 +10,24 @@ import java.util.List;
 @ApplicationScoped
 public class ShoppingCartMapper {
 
-    public ShoppingCart toEntity(ShoppingCartDto shoppingCartDto){
-        if (shoppingCartDto == null) {
+    public ShoppingCart toEntity(ShoppingCartResponseDto shoppingCartResponseDto){
+        if (shoppingCartResponseDto == null) {
             return null;
         }
         return ShoppingCart.builder()
-                .id(shoppingCartDto.getId())
-                .status(shoppingCartDto.getStatus())
-                .totalPrice(shoppingCartDto.getTotalPrice())
-                .confirmationDate(shoppingCartDto.getConfirmationDate())
-                .creationDate(shoppingCartDto.getCreationDate())
+                .id(shoppingCartResponseDto.getId())
+                .status(shoppingCartResponseDto.getStatus())
+                .totalPrice(shoppingCartResponseDto.getTotalPrice())
+                .confirmationDate(shoppingCartResponseDto.getConfirmationDate())
+                .creationDate(shoppingCartResponseDto.getCreationDate())
                 .build();
     }
 
-    public ShoppingCartDto toDto(ShoppingCart shoppingCart){
+    public ShoppingCartResponseDto toDto(ShoppingCart shoppingCart){
         if (shoppingCart == null) {
             return null;
         }
-        return ShoppingCartDto.builder()
+        return ShoppingCartResponseDto.builder()
                 .id(shoppingCart.getId())
                 .status(shoppingCart.getStatus())
                 .totalPrice(shoppingCart.getTotalPrice())
@@ -36,17 +36,17 @@ public class ShoppingCartMapper {
                 .build();
     }
 
-    public List<ShoppingCart> toEntityList(List<ShoppingCartDto> shoppingCartDtoList) {
-        if (shoppingCartDtoList == null) {
+    public List<ShoppingCart> toEntityList(List<ShoppingCartResponseDto> shoppingCartResponseDtoList) {
+        if (shoppingCartResponseDtoList == null) {
             return Collections.emptyList();
         }
 
-        return shoppingCartDtoList.stream()
+        return shoppingCartResponseDtoList.stream()
                 .map(this::toEntity)
                 .toList();
     }
 
-    public List<ShoppingCartDto> toDtoList(List<ShoppingCart> shoppingCartList) {
+    public List<ShoppingCartResponseDto> toDtoList(List<ShoppingCart> shoppingCartList) {
         if (shoppingCartList == null) {
             return Collections.emptyList();
         }

@@ -48,7 +48,7 @@ public class AgentResponseDto {
     private Role role;
 
     @Builder.Default
-    private List<ShoppingCartDto> shoppingCarts = new ArrayList<>();
+    private List<ShoppingCartResponseDto> shoppingCarts = new ArrayList<>();
 
     public static Agent toEntity(AgentResponseDto dto){
         return Agent.builder()
@@ -61,7 +61,7 @@ public class AgentResponseDto {
                 .gender(dto.getGender())
                 .createdOn(dto.getCreatedOn())
                 .role(dto.getRole())
-                .shoppingCarts(dto.getShoppingCarts().stream().map(ShoppingCartDto::toEntity).toList())
+                .shoppingCarts(dto.getShoppingCarts().stream().map(ShoppingCartResponseDto::toEntity).toList())
                 .build();
     }
 
@@ -76,7 +76,7 @@ public class AgentResponseDto {
                 .gender(entity.getGender())
                 .createdOn(entity.getCreatedOn())
                 .role(entity.getRole())
-                .shoppingCarts(entity.getShoppingCarts().stream().map(ShoppingCartDto::ofEntity).toList())
+                .shoppingCarts(entity.getShoppingCarts().stream().map(ShoppingCartResponseDto::ofEntity).toList())
                 .build();
     }
 }
