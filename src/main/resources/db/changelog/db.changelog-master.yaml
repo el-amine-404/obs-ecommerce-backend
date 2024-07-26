@@ -381,4 +381,32 @@ databaseChangeLog:
             columnName: confirmation_date
             schemaName: obs_ecommerce
             tableName: shopping_cart
+  - changeSet:
+      id: drop_fk_shopping_cart_item_on_product
+      author: amine
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: shopping_cart_item
+            constraintName: FK_SHOPPING_CART_ITEM_ON_PRODUCT
+            baseTableSchemaName: obs_ecommerce
+  - changeSet:
+      id: drop_uc_shopping_cart_item_product
+      author: amine
+      changes:
+        - dropUniqueConstraint:
+            constraintName: uc_shopping_cart_item_product
+            schemaName: obs_ecommerce
+            tableName: shopping_cart_item
+  - changeSet:
+      id: add_fk_shopping_cart_item_on_product
+      author: amine
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: product_id
+            baseTableName: shopping_cart_item
+            baseTableSchemaName: obs_ecommerce
+            constraintName: FK_SHOPPING_CART_ITEM_ON_PRODUCT
+            referencedColumnNames: product_id
+            referencedTableName: product
+            referencedTableSchemaName: obs_ecommerce
 
