@@ -2,8 +2,10 @@ package org.obs.controller;
 
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriInfo;
 import lombok.AllArgsConstructor;
 import org.obs.dto.*;
 import org.obs.service.Impl.CompanyServiceImpl;
@@ -15,6 +17,9 @@ import java.net.URI;
 @Consumes(MediaType.APPLICATION_JSON)
 @AllArgsConstructor
 public class CompanyController {
+
+    @Context
+    private UriInfo uriInfo;
 
     private final CompanyServiceImpl companyService;
 
@@ -32,7 +37,8 @@ public class CompanyController {
     @POST
     public Response create(@Valid CompanyCreateDto companyCreateDto){
         CompanyResponseDto createdCompany = companyService.createCompany(companyCreateDto);
-        return Response.created(URI.create("/company/" + createdCompany.getId())).build();
+        URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(createdCompany.getId())).build();
+        return Response.created(uri).build();
     }
 
     @PUT
