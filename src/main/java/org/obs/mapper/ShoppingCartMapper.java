@@ -1,6 +1,7 @@
 package org.obs.mapper;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import org.obs.dto.ShoppingCartItemResponseDto;
 import org.obs.dto.ShoppingCartResponseDto;
 import org.obs.model.ShoppingCart;
 
@@ -20,6 +21,7 @@ public class ShoppingCartMapper {
                 .totalPrice(shoppingCartResponseDto.getTotalPrice())
                 .confirmationDate(shoppingCartResponseDto.getConfirmationDate())
                 .creationDate(shoppingCartResponseDto.getCreationDate())
+                .shoppingCartItems(shoppingCartResponseDto.getShoppingCartItems().stream().map(ShoppingCartItemResponseDto::toEntity).toList())
                 .build();
     }
 
@@ -33,6 +35,7 @@ public class ShoppingCartMapper {
                 .totalPrice(shoppingCart.getTotalPrice())
                 .confirmationDate(shoppingCart.getConfirmationDate())
                 .creationDate(shoppingCart.getCreationDate())
+                .shoppingCartItems(shoppingCart.getShoppingCartItems().stream().map(ShoppingCartItemResponseDto::ofEntity).toList())
                 .build();
     }
 

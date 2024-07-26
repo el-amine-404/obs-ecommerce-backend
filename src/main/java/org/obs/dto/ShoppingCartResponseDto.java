@@ -31,7 +31,7 @@ public class ShoppingCartResponseDto {
     private ShoppingCartStatus status;
 
     @Builder.Default
-    private List<ShoppingCartItem> shoppingCartItems = new ArrayList<>();
+    private List<ShoppingCartItemResponseDto> shoppingCartItems = new ArrayList<>();
 
     public static ShoppingCart toEntity(ShoppingCartResponseDto dto){
         return ShoppingCart.builder()
@@ -40,7 +40,7 @@ public class ShoppingCartResponseDto {
                 .confirmationDate(dto.getConfirmationDate())
                 .totalPrice(dto.getTotalPrice())
                 .status(dto.getStatus())
-                .shoppingCartItems(dto.getShoppingCartItems())
+                .shoppingCartItems(dto.getShoppingCartItems().stream().map(ShoppingCartItemResponseDto::toEntity).toList())
                 .build();
     }
 
@@ -51,7 +51,7 @@ public class ShoppingCartResponseDto {
                 .confirmationDate(entity.getConfirmationDate())
                 .totalPrice(entity.getTotalPrice())
                 .status(entity.getStatus())
-                .shoppingCartItems(entity.getShoppingCartItems())
+                .shoppingCartItems(entity.getShoppingCartItems().stream().map(ShoppingCartItemResponseDto::ofEntity).toList())
                 .build();
     }
 
