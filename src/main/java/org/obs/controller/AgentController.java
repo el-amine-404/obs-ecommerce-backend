@@ -18,7 +18,7 @@ public class AgentController {
     private final AgentServiceImpl agentService;
 
     @POST
-    @Path("/{id}/shopping-cart")
+    @Path("/{id:[0-9]*}/shopping-cart")
     public Response addShoppingCart(@PathParam("id") Long id) {
         ShoppingCartResponseDto shoppingCartResponseDto = agentService.addShoppingCartToAgent(id);
         return Response.created(URI.create("/agent/" + id + "/shopping-cart/" + shoppingCartResponseDto.getId())).build();
