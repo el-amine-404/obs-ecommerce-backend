@@ -1,10 +1,7 @@
 package org.obs.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +10,7 @@ import java.util.List;
 @Table(name = "company", schema = "obs_ecommerce")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Company {
@@ -34,9 +32,11 @@ public class Company {
     @Column(name = "email", nullable = false, length = 50)
     private String email;
 
+    @Builder.Default
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
-    private List<Addresse> addresses = new ArrayList<>();
+    private List<Address> addresses = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
     private List<Agent> agents = new ArrayList<>();
 

@@ -2,13 +2,12 @@ package org.obs.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.obs.model.Company;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CompanyCreateDto {
@@ -24,4 +23,23 @@ public class CompanyCreateDto {
 
     @Email(message = "Please provide a valid email address")
     private String email;
+
+    public static Company toEntity(CompanyCreateDto dto){
+        return Company.builder()
+                .name(dto.getName())
+                .description(dto.getDescription())
+                .phoneNumber(dto.getPhoneNumber())
+                .email(dto.getEmail())
+                .build();
+    }
+
+    public static CompanyCreateDto ofEntity(Company entity){
+        return CompanyCreateDto.builder()
+                .name(entity.getName())
+                .description(entity.getDescription())
+                .phoneNumber(entity.getPhoneNumber())
+                .email(entity.getEmail())
+                .build();
+    }
+
 }

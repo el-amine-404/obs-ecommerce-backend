@@ -1,7 +1,7 @@
 package org.obs.mapper;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import org.obs.dto.CompanyDto;
+import org.obs.dto.CompanyResponseDto;
 import org.obs.model.Company;
 
 import java.util.Collections;
@@ -18,7 +18,7 @@ public class CompanyMapper {
         this.addressMapper = addressMapper;
     }
 
-    public Company toEntity(CompanyDto companyDto){
+    public Company toEntity(CompanyResponseDto companyDto){
         if (companyDto == null) {
             return null;
         }
@@ -34,11 +34,11 @@ public class CompanyMapper {
         return company;
     }
 
-    public CompanyDto toDto(Company company){
+    public CompanyResponseDto toDto(Company company){
         if (company == null) {
             return null;
         }
-        CompanyDto companyDto = new CompanyDto();
+        CompanyResponseDto companyDto = new CompanyResponseDto();
         companyDto.setId(company.getId());
         companyDto.setName(company.getName());
         companyDto.setDescription(company.getDescription());
@@ -50,7 +50,7 @@ public class CompanyMapper {
         return companyDto;
     }
 
-    public List<Company> toEntityList(List<CompanyDto> companyDtoList) {
+    public List<Company> toEntityList(List<CompanyResponseDto> companyDtoList) {
         if (companyDtoList == null) {
             return Collections.emptyList();
         }
@@ -60,7 +60,7 @@ public class CompanyMapper {
                 .toList();
     }
 
-    public List<CompanyDto> toDtoList(List<Company> companyEntityList) {
+    public List<CompanyResponseDto> toDtoList(List<Company> companyEntityList) {
         if (companyEntityList == null) {
             return Collections.emptyList();
         }

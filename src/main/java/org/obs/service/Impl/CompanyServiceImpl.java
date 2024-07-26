@@ -7,9 +7,8 @@ import org.obs.dto.*;
 import org.obs.mapper.AddressMapper;
 import org.obs.mapper.AgentMapper;
 import org.obs.mapper.CompanyMapper;
-import org.obs.model.Addresse;
-import org.obs.model.Agent;
-import org.obs.model.Company;
+import org.obs.mapper.ShoppingCartMapper;
+import org.obs.model.*;
 import org.obs.repository.AddressRepository;
 import org.obs.repository.AgentRepository;
 import org.obs.repository.CompanyRepository;
@@ -28,6 +27,7 @@ public class CompanyServiceImpl implements CompanyService {
     private final CompanyMapper companyMapper;
     private final AddressMapper addressMapper;
     private final AgentMapper agentMapper;
+    private final ShoppingCartMapper shoppingCartMapper;
 
 
     public CompanyServiceImpl(CompanyRepository companyRepository,
@@ -35,46 +35,43 @@ public class CompanyServiceImpl implements CompanyService {
                               AgentRepository agentRepository,
                               CompanyMapper companyMapper,
                               AddressMapper addressMapper,
-                              AgentMapper agentMapper) {
+                              AgentMapper agentMapper,
+                              ShoppingCartMapper shoppingCartMapper) {
         this.companyRepository = companyRepository;
         this.addressRepository = addressRepository;
         this.agentRepository = agentRepository;
         this.companyMapper = companyMapper;
         this.addressMapper = addressMapper;
         this.agentMapper = agentMapper;
+        this.shoppingCartMapper = shoppingCartMapper;
     }
 
     @Override
-    public CompanyDto getCompanyById(long id) {
+    public CompanyResponseDto getCompanyById(long id) {
        return  companyMapper.toDto(companyRepository.findByIdOptional(id).orElseThrow(() -> new RuntimeException("Company not found")));
     }
 
     @Override
-    public List<CompanyDto> getAllCompanies() {
+    public List<CompanyResponseDto> getAllCompanies() {
         return companyMapper.toDtoList(companyRepository.listAll());
     }
 
     @Transactional
     @Override
-    public CompanyDto createCompany(CompanyCreateDto companyCreateDto) {
+    public CompanyResponseDto createCompany(CompanyCreateDto companyCreateDto) {
         if (!EmailValidator.getInstance().isValid(companyCreateDto.getEmail())) {
             throw new RuntimeException("Invalid email address: " + companyCreateDto.getEmail() + " (please provide something like: username@domain.com");
         }
-        Company company = new Company();
-        company.setName(companyCreateDto.getName());
-        company.setDescription(companyCreateDto.getDescription());
-        company.setAddresses(new ArrayList<>());
-        company.setAgents(new ArrayList<>());
-        company.setEmail(companyCreateDto.getEmail());
-        company.setPhoneNumber(companyCreateDto.getPhoneNumber());
+        Company company = CompanyCreateDto.toEntity(companyCreateDto);
 
         companyRepository.persist(company);
-        return companyMapper.toDto(company);
+
+        return CompanyResponseDto.ofEntity(company);
     }
 
     @Transactional
     @Override
-    public CompanyDto updateCompany(long id, CompanyUpdateDto companyUpdateDto) {
+    public CompanyResponseDto updateCompany(long id, CompanyUpdateDto companyUpdateDto) {
         Company company = companyRepository.findByIdOptional(id).orElseThrow(() -> new RuntimeException("Company not found"));
         company.setName(companyUpdateDto.getName());
         company.setEmail(companyUpdateDto.getEmail());
@@ -100,41 +97,44 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Transactional
     @Override
-    public CompanyDto addAgentToCompany(long companyId, AgentCreateDto agentCreateDto) {
+    public AgentResponseDto addAgentToCompany(long companyId, AgentCreateDto agentCreateDto) {
         Company company = companyRepository.findByIdOptional(companyId).orElseThrow(() -> new RuntimeException("Company not found"));
 
-        Agent agent = new Agent();
-        agent.setRole(agentCreateDto.getRole());
-        agent.setFirstName(agentCreateDto.getFirstName());
-        agent.setLastName(agentCreateDto.getLastName());
-        agent.setAge(agentCreateDto.getAge());
-        agent.setGender(agentCreateDto.getGender());
-        agent.setEmail(agentCreateDto.getEmail());
-        agent.setUsername(agentCreateDto.getUsername());
-        agent.setPassword(agentCreateDto.getPassword());
+        Agent agent = AgentCreateDto.toEntity(agentCreateDto);
+
+        ShoppingCart shoppingCart = ShoppingCart.builder()
+                .agent(agent)
+                .creationDate(LocalDateTime.now())
+                .status(ShoppingCartStatus.NEW)
+                .build();
+
+        List<ShoppingCart> shoppingCarts = new ArrayList<>();
+        shoppingCarts.add(shoppingCart);
+
         agent.setCompany(company);
-        agent.setShoppingCarts(new ArrayList<>());
+        agent.setShoppingCarts(shoppingCarts);
         agent.setCreatedOn(LocalDateTime.now());
 
         agentRepository.persist(agent);
 
         company.getAgents().add(agent);
         
-        return companyMapper.toDto(company);
+        return AgentResponseDto.ofEntity(agent);
     }
 
     @Transactional
     @Override
-    public CompanyDto addAddressToCompany(long companyId, AdresseDto adresseDto) {
+    public AddressResponseDto addAddressToCompany(long companyId, AddressCreateDto addressCreateDto) {
         Company company = companyRepository.findByIdOptional(companyId).orElseThrow(() -> new RuntimeException("Company not found"));
 
-        Addresse addresse = addressMapper.toEntity(adresseDto);
-        addresse.setCompany(company);
+        Address address = AddressCreateDto.toEntity(addressCreateDto);
 
-        addressRepository.persist(addresse);
+        address.setCompany(company);
 
-        company.getAddresses().add(addresse);
+        addressRepository.persist(address);
 
-        return companyMapper.toDto(company);
+        company.getAddresses().add(address);
+
+        return AddressResponseDto.ofEntity(address);
     }
 }

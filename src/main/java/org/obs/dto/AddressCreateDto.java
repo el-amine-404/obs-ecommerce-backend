@@ -13,9 +13,7 @@ import org.obs.model.Address;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddressResponseDto {
-    
-    private Long id;
+public class AddressCreateDto {
 
     @NotNull(message = "Street number is required")
     private int streetNumber;
@@ -28,13 +26,12 @@ public class AddressResponseDto {
 
     @NotNull(message = "Zip code is required")
     private int zipCode;
-    
+
     @Enumerated(EnumType.STRING)
     private CountryCode country;
 
-    public static AddressResponseDto ofEntity(Address entity){
-        return AddressResponseDto.builder()
-                .id(entity.getId())
+    public static AddressCreateDto ofEntity(Address entity){
+        return AddressCreateDto.builder()
                 .streetNumber(entity.getStreetNumber())
                 .streetName(entity.getStreetName())
                 .city(entity.getCity())
@@ -43,9 +40,8 @@ public class AddressResponseDto {
                 .build();
     }
 
-    public static Address toEntity(AddressResponseDto dto){
+    public static Address toEntity(AddressCreateDto dto){
         return Address.builder()
-                .id(dto.getId())
                 .streetNumber(dto.getStreetNumber())
                 .streetName(dto.getStreetName())
                 .city(dto.getCity())
@@ -53,4 +49,5 @@ public class AddressResponseDto {
                 .country(dto.getCountry())
                 .build();
     }
+
 }

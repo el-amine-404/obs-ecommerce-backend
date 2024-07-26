@@ -24,7 +24,7 @@ public class ShoppingCart {
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
 
-    @Column(name = "confirmation_date", nullable = false)
+    @Column(name = "confirmation_date")
     private LocalDateTime confirmationDate;
 
     @Column(name = "total_price", nullable = false)
@@ -38,6 +38,7 @@ public class ShoppingCart {
     @JoinColumn(name = "agent_id")
     private Agent agent;
 
+    @Builder.Default
     @OneToMany(mappedBy = "shoppingCart", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ShoppingCartItem> shoppingCartItems = new ArrayList<>();
     

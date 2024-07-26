@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.obs.model.Agent;
 import org.obs.model.Gender;
 import org.obs.model.Role;
 
@@ -46,5 +47,36 @@ public class AgentResponseDto {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Builder.Default
     private List<ShoppingCartDto> shoppingCarts = new ArrayList<>();
+
+    public static Agent toEntity(AgentResponseDto dto){
+        return Agent.builder()
+                .id(dto.getId())
+                .email(dto.getEmail())
+                .username(dto.getUsername())
+                .firstName(dto.getFirstName())
+                .lastName(dto.getLastName())
+                .age(dto.getAge())
+                .gender(dto.getGender())
+                .createdOn(dto.getCreatedOn())
+                .role(dto.getRole())
+                .shoppingCarts(dto.getShoppingCarts().stream().map(ShoppingCartDto::toEntity).toList())
+                .build();
+    }
+
+    public static AgentResponseDto ofEntity(Agent entity){
+        return AgentResponseDto.builder()
+                .id(entity.getId())
+                .email(entity.getEmail())
+                .username(entity.getUsername())
+                .firstName(entity.getFirstName())
+                .lastName(entity.getLastName())
+                .age(entity.getAge())
+                .gender(entity.getGender())
+                .createdOn(entity.getCreatedOn())
+                .role(entity.getRole())
+                .shoppingCarts(entity.getShoppingCarts().stream().map(ShoppingCartDto::ofEntity).toList())
+                .build();
+    }
 }

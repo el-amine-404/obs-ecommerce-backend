@@ -2,10 +2,7 @@ package org.obs.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,6 +12,7 @@ import java.util.List;
 @Table(name = "agent", schema = "obs_ecommerce")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Agent {
@@ -57,6 +55,7 @@ public class Agent {
     @JoinColumn(name = "company_id")
     private Company company;
 
+    @Builder.Default
     @OneToMany(mappedBy = "agent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ShoppingCart> shoppingCarts = new ArrayList<>();
 }

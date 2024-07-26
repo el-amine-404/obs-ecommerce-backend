@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Addresse {
+public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -5,15 +5,14 @@ import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.obs.model.Agent;
 import org.obs.model.Gender;
 import org.obs.model.Role;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class AgentCreateDto {
@@ -42,5 +41,31 @@ public class AgentCreateDto {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public static Agent toEntity(AgentCreateDto agentCreateDto){
+        return Agent.builder()
+                .email(agentCreateDto.getEmail())
+                .username(agentCreateDto.getUsername())
+                .password(agentCreateDto.getPassword())
+                .firstName(agentCreateDto.getFirstName())
+                .lastName(agentCreateDto.getLastName())
+                .age(agentCreateDto.getAge())
+                .gender(agentCreateDto.getGender())
+                .role(agentCreateDto.getRole())
+                .build();
+    }
+
+    public static AgentCreateDto ofEntity(Agent agent){
+        return AgentCreateDto.builder()
+                .email(agent.getEmail())
+                .username(agent.getUsername())
+                .password(agent.getPassword())
+                .firstName(agent.getFirstName())
+                .lastName(agent.getLastName())
+                .age(agent.getAge())
+                .gender(agent.getGender())
+                .role(agent.getRole())
+                .build();
+    }
 
 }

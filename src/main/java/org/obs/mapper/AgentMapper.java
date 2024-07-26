@@ -2,7 +2,7 @@ package org.obs.mapper;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
-import org.obs.dto.AgentDto;
+import org.obs.dto.AgentResponseDto;
 import org.obs.model.Agent;
 
 import java.util.Collections;
@@ -18,7 +18,7 @@ public class AgentMapper {
     }
 
     @Transactional
-     public Agent toEntity(AgentDto agentDto){
+     public Agent toEntity(AgentResponseDto agentDto){
          if (agentDto == null) {
              return null;
          }
@@ -31,7 +31,6 @@ public class AgentMapper {
          agent.setGender(agentDto.getGender());
          agent.setRole(agentDto.getRole());
          agent.setCreatedOn(agentDto.getCreatedOn());
-         agent.setPassword(agentDto.getPassword());
          agent.setUsername(agentDto.getUsername());
          agent.setShoppingCarts(shoppingCartMapper.toEntityList(agentDto.getShoppingCarts()));
 
@@ -40,11 +39,11 @@ public class AgentMapper {
      }
 
      @Transactional
-     public AgentDto toDto(Agent agent){
+     public AgentResponseDto toDto(Agent agent){
          if (agent == null) {
              return null;
          }
-         AgentDto agentDto = new AgentDto();
+         AgentResponseDto agentDto = new AgentResponseDto();
          agentDto.setId(agent.getId());
          agentDto.setFirstName(agent.getFirstName());
          agentDto.setLastName(agent.getLastName());
@@ -53,14 +52,13 @@ public class AgentMapper {
          agentDto.setGender(agent.getGender());
          agentDto.setRole(agent.getRole());
          agentDto.setCreatedOn(agent.getCreatedOn());
-         agentDto.setPassword(agent.getPassword());
          agentDto.setUsername(agent.getUsername());
          agentDto.setShoppingCarts(shoppingCartMapper.toDtoList(agent.getShoppingCarts()));
 
          return agentDto;
      }
 
-     public List<Agent> toEntityList(List<AgentDto> agentDtoList) {
+     public List<Agent> toEntityList(List<AgentResponseDto> agentDtoList) {
          if (agentDtoList == null) {
              return Collections.emptyList();
          }
@@ -70,7 +68,7 @@ public class AgentMapper {
                  .toList();
      }
 
-     public List<AgentDto> toDtoList(List<Agent> agentEntityList) {
+     public List<AgentResponseDto> toDtoList(List<Agent> agentEntityList) {
          if (agentEntityList == null) {
              return Collections.emptyList();
          }

@@ -1,8 +1,8 @@
 package org.obs.mapper;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import org.obs.dto.AdresseDto;
-import org.obs.model.Addresse;
+import org.obs.dto.AddressResponseDto;
+import org.obs.model.Address;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,37 +10,37 @@ import java.util.List;
 @ApplicationScoped
 public class AddressMapper {
 
-    public Addresse toEntity(AdresseDto adresseDto){
+    public Address toEntity(AddressResponseDto adresseDto){
         if (adresseDto == null) {
             return null;
         }
-        Addresse addresse = new Addresse();
-        addresse.setId(adresseDto.getId());
-        addresse.setStreetName(adresseDto.getStreetName());
-        addresse.setStreetNumber(adresseDto.getStreetNumber());
-        addresse.setCity(adresseDto.getCity());
-        addresse.setCountry(adresseDto.getCountry());
-        addresse.setZipCode(adresseDto.getZipCode());
+        Address address = new Address();
+        address.setId(adresseDto.getId());
+        address.setStreetName(adresseDto.getStreetName());
+        address.setStreetNumber(adresseDto.getStreetNumber());
+        address.setCity(adresseDto.getCity());
+        address.setCountry(adresseDto.getCountry());
+        address.setZipCode(adresseDto.getZipCode());
 
-        return addresse;
+        return address;
     }
 
-    public AdresseDto toDto(Addresse addresse){
-        if (addresse == null) {
+    public AddressResponseDto toDto(Address address){
+        if (address == null) {
             return null;
         }
-        AdresseDto adresseDto = new AdresseDto();
-        adresseDto.setId(addresse.getId());
-        adresseDto.setStreetName(addresse.getStreetName());
-        adresseDto.setStreetNumber(addresse.getStreetNumber());
-        adresseDto.setCity(addresse.getCity());
-        adresseDto.setCountry(addresse.getCountry());
-        adresseDto.setZipCode(addresse.getZipCode());
+        AddressResponseDto adresseDto = new AddressResponseDto();
+        adresseDto.setId(address.getId());
+        adresseDto.setStreetName(address.getStreetName());
+        adresseDto.setStreetNumber(address.getStreetNumber());
+        adresseDto.setCity(address.getCity());
+        adresseDto.setCountry(address.getCountry());
+        adresseDto.setZipCode(address.getZipCode());
 
         return adresseDto;
     }
 
-    public List<Addresse> toEntityList(List<AdresseDto> adresseDtoList) {
+    public List<Address> toEntityList(List<AddressResponseDto> adresseDtoList) {
         if (adresseDtoList == null) {
             return Collections.emptyList();
         }
@@ -50,12 +50,12 @@ public class AddressMapper {
                 .toList();
     }
 
-    public List<AdresseDto> toDtoList(List<Addresse> addresseList) {
-        if (addresseList == null) {
+    public List<AddressResponseDto> toDtoList(List<Address> addressList) {
+        if (addressList == null) {
             return Collections.emptyList();
         }
 
-        return addresseList.stream()
+        return addressList.stream()
                 .map(this::toDto)
                 .toList();
     }

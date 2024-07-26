@@ -31,7 +31,7 @@ public class CompanyController {
 
     @POST
     public Response create(@Valid CompanyCreateDto companyCreateDto){
-        CompanyDto createdCompany = companyService.createCompany(companyCreateDto);
+        CompanyResponseDto createdCompany = companyService.createCompany(companyCreateDto);
         return Response.created(URI.create("/company/" + createdCompany.getId())).build();
     }
 
@@ -44,12 +44,27 @@ public class CompanyController {
     @POST
     @Path("/{id}/agent")
     public Response addAgent(@PathParam("id") Long id, @Valid AgentCreateDto agentCreateDto){
-        return Response.ok(companyService.addAgentToCompany(id, agentCreateDto)).build();
+        AgentResponseDto createdAgent = companyService.addAgentToCompany(id, agentCreateDto);
+        return Response.created(URI.create("/company/" + id + "/agent/" + createdAgent.getId())).build();
     }
 
     @POST
     @Path("/{id}/address")
-    public Response addAddress(@PathParam("id") Long id, @Valid AdresseDto adresseDto){
-        return Response.ok(companyService.addAddressToCompany(id, adresseDto)).build();
+    public Response addAddress(@PathParam("id") Long id, @Valid AddressCreateDto addressCreateDto){
+        AddressResponseDto createdAddress = companyService.addAddressToCompany(id, addressCreateDto);
+        return Response.created(URI.create("/company/" + id + "/address/" + createdAddress.getId())).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response delete(@PathParam("id") Long id){
+        companyService.deleteCompanyById(id);
+        return Response.noContent().build();
+    }
+
+    @DELETE
+    public Response deleteAll(){
+        companyService.deleteAllCompanies();
+        return Response.noContent().build();
     }
 }

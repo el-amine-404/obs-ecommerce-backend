@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.obs.model.Addresse;
+import org.obs.model.Address;
 import org.obs.model.Agent;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class CompanyUpdateDto {
     @Email(message = "Please provide a valid email address")
     private String email;
 
-    private List<Addresse> addresses = new ArrayList<>();
+    private List<Address> addresses = new ArrayList<>();
 
     private List<Agent> agents = new ArrayList<>();
 

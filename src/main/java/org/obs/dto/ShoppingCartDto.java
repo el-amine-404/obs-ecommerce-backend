@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.obs.model.Agent;
+import org.obs.model.ShoppingCart;
 import org.obs.model.ShoppingCartItem;
 import org.obs.model.ShoppingCartStatus;
 
@@ -30,6 +31,29 @@ public class ShoppingCartDto {
     @Enumerated(EnumType.STRING)
     private ShoppingCartStatus status;
 
+    @Builder.Default
     private List<ShoppingCartItem> shoppingCartItems = new ArrayList<>();
+
+    public static ShoppingCart toEntity(ShoppingCartDto dto){
+        return ShoppingCart.builder()
+                .id(dto.getId())
+                .creationDate(dto.getCreationDate())
+                .confirmationDate(dto.getConfirmationDate())
+                .totalPrice(dto.getTotalPrice())
+                .status(dto.getStatus())
+                .shoppingCartItems(dto.getShoppingCartItems())
+                .build();
+    }
+
+    public static ShoppingCartDto ofEntity(ShoppingCart entity){
+        return ShoppingCartDto.builder()
+                .id(entity.getId())
+                .creationDate(entity.getCreationDate())
+                .confirmationDate(entity.getConfirmationDate())
+                .totalPrice(entity.getTotalPrice())
+                .status(entity.getStatus())
+                .shoppingCartItems(entity.getShoppingCartItems())
+                .build();
+    }
 
 }
