@@ -4,10 +4,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.obs.dto.*;
-import org.obs.mapper.AddressMapper;
-import org.obs.mapper.AgentMapper;
-import org.obs.mapper.CompanyMapper;
-import org.obs.mapper.ShoppingCartMapper;
 import org.obs.model.*;
 import org.obs.repository.AddressRepository;
 import org.obs.repository.AgentRepository;
@@ -24,36 +20,25 @@ public class CompanyServiceImpl implements CompanyService {
     private final CompanyRepository companyRepository;
     private final AddressRepository addressRepository;
     private final AgentRepository agentRepository;
-    private final CompanyMapper companyMapper;
-    private final AddressMapper addressMapper;
-    private final AgentMapper agentMapper;
-    private final ShoppingCartMapper shoppingCartMapper;
 
 
     public CompanyServiceImpl(CompanyRepository companyRepository,
                               AddressRepository addressRepository,
-                              AgentRepository agentRepository,
-                              CompanyMapper companyMapper,
-                              AddressMapper addressMapper,
-                              AgentMapper agentMapper,
-                              ShoppingCartMapper shoppingCartMapper) {
+                              AgentRepository agentRepository) {
         this.companyRepository = companyRepository;
         this.addressRepository = addressRepository;
         this.agentRepository = agentRepository;
-        this.companyMapper = companyMapper;
-        this.addressMapper = addressMapper;
-        this.agentMapper = agentMapper;
-        this.shoppingCartMapper = shoppingCartMapper;
     }
 
     @Override
     public CompanyResponseDto getCompanyById(long id) {
-       return  companyMapper.toDto(companyRepository.findByIdOptional(id).orElseThrow(() -> new RuntimeException("Company not found")));
+       Company company = companyRepository.findByIdOptional(id).orElseThrow(() -> new RuntimeException("Company not found"));
+       return CompanyResponseDto.ofEntity(company);
     }
 
     @Override
     public List<CompanyResponseDto> getAllCompanies() {
-        return companyMapper.toDtoList(companyRepository.listAll());
+        return companyRepository.listAll().stream().map(CompanyResponseDto::ofEntity).toList();
     }
 
     @Transactional
@@ -79,7 +64,8 @@ public class CompanyServiceImpl implements CompanyService {
         company.setDescription(companyUpdateDto.getDescription());
         company.setAddresses(companyUpdateDto.getAddresses());
         company.setAgents(companyUpdateDto.getAgents());
-        return companyMapper.toDto(company);
+        
+        return CompanyResponseDto.ofEntity(company);
     }
 
     @Transactional

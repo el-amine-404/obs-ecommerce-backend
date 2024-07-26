@@ -23,7 +23,7 @@ public class CompanyController {
 
     private final CompanyServiceImpl companyService;
 
-    @GET()
+    @GET
     public Response getAll(){
         return Response.ok(companyService.getAllCompanies()).build();
     }
