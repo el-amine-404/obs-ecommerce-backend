@@ -28,8 +28,8 @@ public class CompanyController {
         return Response.ok(companyService.getAllCompanies()).build();
     }
 
-    @GET()
-    @Path("/{id:[0-9]*}")
+    @GET
+    @Path("/{id:[0-9]+}")
     public Response getById(Long id){
         return Response.ok(companyService.getCompanyById(id)).build();
     }
@@ -42,27 +42,27 @@ public class CompanyController {
     }
 
     @PUT
-    @Path("/{id:[0-9]*}")
+    @Path("/{id:[0-9]+}")
     public Response update(@PathParam("id") Long id, @Valid CompanyUpdateDto companyUpdateDto){
         return Response.ok(companyService.updateCompany(id, companyUpdateDto)).build();
     }
 
     @POST
-    @Path("/{id:[0-9]*}/agent")
+    @Path("/{id:[0-9]+}/agent")
     public Response addAgent(@PathParam("id") Long id, @Valid AgentCreateDto agentCreateDto){
         AgentResponseDto createdAgent = companyService.addAgentToCompany(id, agentCreateDto);
         return Response.created(URI.create("/company/" + id + "/agent/" + createdAgent.getId())).build();
     }
 
     @POST
-    @Path("/{id:[0-9]*}/address")
+    @Path("/{id:[0-9]+}/address")
     public Response addAddress(@PathParam("id") Long id, @Valid AddressCreateDto addressCreateDto){
         AddressResponseDto createdAddress = companyService.addAddressToCompany(id, addressCreateDto);
         return Response.created(URI.create("/company/" + id + "/address/" + createdAddress.getId())).build();
     }
 
     @DELETE
-    @Path("/{id:[0-9]*}")
+    @Path("/{id:[0-9]+}")
     public Response delete(@PathParam("id") Long id){
         companyService.deleteCompanyById(id);
         return Response.noContent().build();

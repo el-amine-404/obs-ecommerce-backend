@@ -18,7 +18,7 @@ public class ShoppingCartController {
     private final ShoppingCartServiceImpl shoppingCartService;
 
     @POST
-    @Path("/{id:[0-9]*}/add-item")
+    @Path("/{id:[0-9]+}/add-item")
     public Response createItem(@PathParam("id") Long id,
                                                   @QueryParam("quantity") int quantity,
                                                   @QueryParam("productId") long productId){
