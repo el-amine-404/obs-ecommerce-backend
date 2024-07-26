@@ -4,8 +4,6 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.AllArgsConstructor;
-import org.jboss.logging.annotations.Pos;
-import org.obs.dto.AddressResponseDto;
 import org.obs.dto.ShoppingCartItemResponseDto;
 import org.obs.service.Impl.ShoppingCartServiceImpl;
 
