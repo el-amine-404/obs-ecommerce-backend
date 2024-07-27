@@ -1,17 +1,18 @@
 package org.obs.service;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import lombok.AllArgsConstructor;
-import org.obs.repository.ProductRepository;
+import org.obs.dto.ProductCreateDto;
+import org.obs.dto.ProductResponseDto;
 
-@ApplicationScoped
-@AllArgsConstructor
-public class ProductService {
+import java.util.List;
 
-    private final ProductRepository productRepository;
+public interface ProductService {
 
-
-
-
+    public ProductResponseDto getProductById(Long id);
+    public List<ProductResponseDto> getAllProducts();
+    public ProductResponseDto createProduct(ProductCreateDto productCreateDto);
+    public void deleteProductById(Long id);
+    public void deleteAllProducts();
+    public List<ProductResponseDto> getProductsByCategory(String category);
+    public long getProductsCount();
 
 }
