@@ -409,4 +409,84 @@ databaseChangeLog:
             referencedColumnNames: product_id
             referencedTableName: product
             referencedTableSchemaName: obs_ecommerce
+  - changeSet:
+      id: 1722243019358-1
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - modifyDataType:
+            columnName: category
+            newDataType: VARCHAR(255)
+            schemaName: obs_ecommerce
+            tableName: product
+  - changeSet:
+      id: 1722243019358-2
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - modifyDataType:
+            columnName: description
+            newDataType: VARCHAR(255)
+            schemaName: obs_ecommerce
+            tableName: product
+  - changeSet:
+      id: 1722243019358-3
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - modifyDataType:
+            columnName: image
+            newDataType: VARCHAR(255)
+            schemaName: obs_ecommerce
+            tableName: product
+  - changeSet:
+      id: 1722243019358-4
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - modifyDataType:
+            columnName: manufacturer
+            newDataType: VARCHAR(255)
+            schemaName: obs_ecommerce
+            tableName: product
+  - changeSet:
+      id: 1722243019358-5
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - modifyDataType:
+            columnName: seller
+            newDataType: VARCHAR(255)
+            schemaName: obs_ecommerce
+            tableName: product
+  - changeSet:
+      id: 1722243019358-6
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - modifyDataType:
+            columnName: sku
+            newDataType: VARCHAR(255)
+            schemaName: obs_ecommerce
+            tableName: product
+  - changeSet:
+      id: 1722243019358-7
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - modifyDataType:
+            columnName: status
+            newDataType: VARCHAR(255)
+            schemaName: obs_ecommerce
+            tableName: product
+  - changeSet:
+      id: 1722243019358-8
+      author: amine (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - modifyDataType:
+            columnName: title
+            newDataType: VARCHAR(255)
+            schemaName: obs_ecommerce
+            tableName: product
 
