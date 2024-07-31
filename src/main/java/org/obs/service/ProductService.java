@@ -8,11 +8,10 @@ import java.util.List;
 public interface ProductService {
 
     public ProductResponseDto getProductById(Long id);
-    public List<ProductResponseDto> getAllProducts();
+    public List<ProductResponseDto> getAllProducts(String category, String status);
     public ProductResponseDto createProduct(ProductCreateDto productCreateDto);
     public void deleteProductById(Long id);
     public void deleteAllProducts();
-    public List<ProductResponseDto> getProductsByCategory(String category);
     public long getProductsCount();
 
 }

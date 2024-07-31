@@ -4,9 +4,12 @@ package org.obs.service.Impl;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.EnumUtils;
 import org.obs.dto.ProductCreateDto;
 import org.obs.dto.ProductResponseDto;
 import org.obs.model.Product;
+import org.obs.model.ProductCategory;
+import org.obs.model.ProductStatus;
 import org.obs.repository.ProductRepository;
 import org.obs.service.ProductService;
 
@@ -25,8 +28,36 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponseDto> getAllProducts() {
-        return productRepository.listAll().stream().map(ProductResponseDto::ofEntity).toList();
+    public List<ProductResponseDto> getAllProducts(String category, String status) {
+        if (category == null && status == null) {
+            return productRepository.listAll().stream().map(ProductResponseDto::ofEntity).toList();
+        } else if (category == null) {
+            if (!EnumUtils.isValidEnum(ProductStatus.class, status.toUpperCase())) {
+                throw new RuntimeException("Invalid status");
+            }
+            ProductStatus productStatus = ProductStatus.valueOf(status.toUpperCase());
+            List<Product> products = productRepository.findByStatus(productStatus);
+            return products.stream().map(ProductResponseDto::ofEntity).toList();
+        } else if (status == null) {
+            if (!EnumUtils.isValidEnum(ProductCategory.class, category.toUpperCase())) {
+                throw new RuntimeException("No category is found");
+            }
+            ProductCategory productCategory = ProductCategory.valueOf(category.toUpperCase());
+            List<Product> products = productRepository.findByCategory(productCategory);
+            return products.stream().map(ProductResponseDto::ofEntity).toList();
+        } else {
+            if (!EnumUtils.isValidEnum(ProductCategory.class, category.toUpperCase())) {
+                throw new RuntimeException("No category is found");
+            }
+            if (!EnumUtils.isValidEnum(ProductStatus.class, status.toUpperCase())) {
+                throw new RuntimeException("Invalid status");
+            }
+            ProductCategory productCategory = ProductCategory.valueOf(category.toUpperCase());
+            ProductStatus productStatus = ProductStatus.valueOf(status.toUpperCase());
+            List<Product> products = productRepository.findByCategoryAndStatus(productCategory, productStatus);
+            return products.stream().map(ProductResponseDto::ofEntity).toList();
+        }
+
     }
 
     @Transactional
@@ -51,10 +82,6 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteAll();
     }
 
-    @Override
-    public List<ProductResponseDto> getProductsByCategory(String category) {
-        return List.of();
-    }
 
     @Override
     public long getProductsCount() {

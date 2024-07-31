@@ -1,5 +1,6 @@
 package org.obs.controller;
 
+import jakarta.persistence.Enumerated;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
@@ -25,8 +26,8 @@ public class ProductController {
     private final ProductServiceImpl productService;
 
     @GET
-    public Response getAll(){
-        return Response.ok(productService.getAllProducts()).build();
+    public Response getAll(@QueryParam("category") String category, @QueryParam("status") String status){
+        return Response.ok(productService.getAllProducts(category, status)).build();
     }
 
     @GET
