@@ -1,21 +1,25 @@
 package org.obs.controller;
 
+import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import lombok.AllArgsConstructor;
 import org.obs.dto.ShoppingCartResponseDto;
-import org.obs.service.Impl.AgentServiceImpl;
+import org.obs.service.AgentService;
 
 import java.net.URI;
 
 @Path("/api/v1/agent")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@AllArgsConstructor
 public class AgentController {
 
-    private final AgentServiceImpl agentService;
+    private final AgentService agentService;
+
+    @Inject
+    public AgentController(AgentService agentService) {
+        this.agentService = agentService;
+    }
 
     @POST
     @Path("/{id:[0-9]+}/shopping-cart")

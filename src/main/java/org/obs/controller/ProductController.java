@@ -1,29 +1,32 @@
 package org.obs.controller;
 
-import jakarta.persistence.Enumerated;
+import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
-import lombok.AllArgsConstructor;
 import org.obs.dto.ProductCreateDto;
 import org.obs.dto.ProductResponseDto;
-import org.obs.service.Impl.ProductServiceImpl;
+import org.obs.service.ProductService;
 
 import java.net.URI;
 
 @Path("/api/v1/product")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@AllArgsConstructor
 public class ProductController {
 
     @Context
     private UriInfo uriInfo;
+    
+    private final ProductService productService;
 
-    private final ProductServiceImpl productService;
+    @Inject
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @GET
     public Response getAll(@QueryParam("category") String category, @QueryParam("status") String status){

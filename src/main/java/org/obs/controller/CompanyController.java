@@ -1,27 +1,31 @@
 package org.obs.controller;
 
+import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
-import lombok.AllArgsConstructor;
 import org.obs.dto.*;
-import org.obs.service.Impl.CompanyServiceImpl;
+import org.obs.service.CompanyService;
 
 import java.net.URI;
 
 @Path("/api/v1/company")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@AllArgsConstructor
 public class CompanyController {
 
     @Context
     private UriInfo uriInfo;
 
-    private final CompanyServiceImpl companyService;
+    private final CompanyService companyService;
+
+    @Inject
+    public CompanyController(CompanyService companyService) {
+        this.companyService = companyService;
+    }
 
     @GET
     public Response getAll(){

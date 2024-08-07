@@ -1,21 +1,25 @@
 package org.obs.controller;
 
+import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import lombok.AllArgsConstructor;
 import org.obs.dto.ShoppingCartItemResponseDto;
-import org.obs.service.Impl.ShoppingCartServiceImpl;
+import org.obs.service.ShoppingCartService;
 
 import java.net.URI;
 
 @Path("/api/v1/shopping-cart")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@AllArgsConstructor
 public class ShoppingCartController {
 
-    private final ShoppingCartServiceImpl shoppingCartService;
+    private final ShoppingCartService shoppingCartService;
+
+    @Inject
+    public ShoppingCartController(ShoppingCartService shoppingCartService) {
+        this.shoppingCartService = shoppingCartService;
+    }
 
     @POST
     @Path("/{id:[0-9]+}/add-item")
