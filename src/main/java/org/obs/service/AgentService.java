@@ -4,6 +4,6 @@ import org.obs.dto.AgentResponseDto;
 import org.obs.dto.ShoppingCartResponseDto;
 
 public interface AgentService {
-    public AgentResponseDto getAgentById(long agentId);
+    AgentResponseDto getAgentById(long agentId);
     ShoppingCartResponseDto addShoppingCartToAgent(long agentId);
 }
