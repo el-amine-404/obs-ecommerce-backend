@@ -5,12 +5,12 @@ import org.obs.dto.*;
 import java.util.List;
 
 public interface CompanyService {
-    public CompanyResponseDto getCompanyById(long id);
-    public List<CompanyResponseDto> getAllCompanies();
-    public CompanyResponseDto createCompany(CompanyCreateDto companyCreateDto);
-    public CompanyResponseDto updateCompany(long id, CompanyUpdateDto companyUpdateDto);
-    public void deleteCompanyById(long id);
-    public void deleteAllCompanies();
-    public AgentResponseDto addAgentToCompany(long companyId, AgentCreateDto agentCreateDto);
-    public AddressResponseDto addAddressToCompany(long companyId, AddressCreateDto addressCreateDto);
+    CompanyResponseDto getCompanyById(long id);
+    List<CompanyResponseDto> getAllCompanies();
+    CompanyResponseDto createCompany(CompanyCreateDto companyCreateDto);
+    CompanyResponseDto updateCompany(long id, CompanyUpdateDto companyUpdateDto);
+    void deleteCompanyById(long id);
+    void deleteAllCompanies();
+    AgentResponseDto addAgentToCompany(long companyId, AgentCreateDto agentCreateDto);
+    AddressResponseDto addAddressToCompany(long companyId, AddressCreateDto addressCreateDto);
 }
