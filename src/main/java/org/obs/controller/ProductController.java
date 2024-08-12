@@ -1,6 +1,5 @@
 package org.obs.controller;
 
-import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -30,14 +29,12 @@ public class ProductController {
     }
 
     @GET
-    @PermitAll
     public Response getAll(@QueryParam("category") String category, @QueryParam("status") String status){
         return Response.ok(productService.getAllProducts(category, status)).build();
     }
 
     @GET
     @Path("/{id:[0-9]+}")
-    @PermitAll
     public Response getById(Long id){
         return Response.ok(productService.getProductById(id)).build();
     }
