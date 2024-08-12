@@ -13,7 +13,7 @@ import org.obs.dto.LoginDto;
 import org.obs.model.Agent;
 import org.obs.service.AgentService;
 
-@Path("/auth/login")
+@Path("/auth")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @AllArgsConstructor
