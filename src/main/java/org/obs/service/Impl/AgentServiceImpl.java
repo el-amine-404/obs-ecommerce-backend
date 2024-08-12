@@ -66,8 +66,8 @@ public class AgentServiceImpl implements AgentService {
     public String generateJwtToken(final Agent agent) {
 
         return Jwt.issuer(issuer)
-                .upn(agent.getUsername())
-                .groups(agent.getRole().toString())
+                .subject(agent.getUsername())
+                .scope(agent.getRole().toString())
                 .expiresIn(jwtExpirationTime)
                 .claim(Claims.email_verified.name(), agent.getEmail())
                 .claim(Claims.family_name, agent.getLastName())
