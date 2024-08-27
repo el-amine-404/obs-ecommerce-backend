@@ -1,5 +1,6 @@
 package org.obs.service;
 
+import org.obs.dto.CategoryCountDto;
 import org.obs.dto.ProductCreateDto;
 import org.obs.dto.ProductResponseDto;
 
@@ -14,4 +15,5 @@ public interface ProductService {
     void deleteAllProducts();
     long getProductsCount();
 
+    List<CategoryCountDto> getCategoryCounts();
 }

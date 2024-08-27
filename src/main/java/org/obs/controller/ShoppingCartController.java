@@ -30,5 +30,16 @@ public class ShoppingCartController {
         return Response.created(URI.create("/shopping-cart-item/" + shoppingCartItemResponseDto.getId())).build();
     }
 
+    @GET
+    @Path("/agent/{agentId}")
+    public Response getCartsByAgentId(@PathParam("agentId") Long agentId) {
+        return Response.ok(shoppingCartService.getCartsByAgentId(agentId)).build();
+    }
+
+    @GET
+    @Path("/{cartId}")
+    public Response getCartDetails(@PathParam("cartId") Long cartId) {
+        return Response.ok(shoppingCartService.getCartDetails(cartId)).build();
+    }
 
 }

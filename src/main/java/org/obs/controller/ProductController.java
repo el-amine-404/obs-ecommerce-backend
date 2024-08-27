@@ -58,4 +58,10 @@ public class ProductController {
         productService.deleteAllProducts();
         return Response.noContent().build();
     }
+
+    @GET
+    @Path("/category-count")
+    public Response getCategoryCounts(){
+        return Response.ok(productService.getCategoryCounts()).build();
+    }
 }

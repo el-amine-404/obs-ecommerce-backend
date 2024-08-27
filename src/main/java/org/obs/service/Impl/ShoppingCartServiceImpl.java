@@ -14,6 +14,7 @@ import org.obs.repository.ShoppingCartItemRepository;
 import org.obs.repository.ShoppingCartRepository;
 import org.obs.service.ShoppingCartService;
 
+import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
@@ -26,7 +27,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 
     @Override
-    public ShoppingCartResponseDto getShoppingCartById(long id) {
+    public ShoppingCartResponseDto getCartDetails(long id) {
         ShoppingCart shoppingCart = shoppingCartRepository.findByIdOptional(id).orElseThrow(() -> new RuntimeException("ShoppingCart not found"));
         return ShoppingCartResponseDto.ofEntity(shoppingCart);
     }
@@ -88,5 +89,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         shoppingCart.setTotalPrice(shoppingCart.getShoppingCartItems().stream().mapToDouble(ShoppingCartItem::getPrice).sum());
 
         return ShoppingCartItemResponseDto.ofEntity(existingItemOptional.orElse(shoppingCartItem));
+    }
+
+    public List<ShoppingCartResponseDto> getCartsByAgentId(Long agentId) {
+        return shoppingCartRepository.findByAgentId(agentId).stream().map(ShoppingCartResponseDto::ofEntity).toList();
     }
 }

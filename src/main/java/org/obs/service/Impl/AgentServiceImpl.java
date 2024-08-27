@@ -70,6 +70,7 @@ public class AgentServiceImpl implements AgentService {
                 .expiresIn(jwtExpirationTime)
                 .claim(Claims.email_verified.name(), agent.getEmail())
                 .claim(Claims.family_name, agent.getLastName())
+                .claim("agentId", agent.getId())
                 .sign();
     }
 

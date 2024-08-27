@@ -5,6 +5,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.EnumUtils;
+import org.obs.dto.CategoryCountDto;
 import org.obs.dto.ProductCreateDto;
 import org.obs.dto.ProductResponseDto;
 import org.obs.model.Product;
@@ -14,6 +15,8 @@ import org.obs.repository.ProductRepository;
 import org.obs.service.ProductService;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 @AllArgsConstructor
@@ -87,4 +90,14 @@ public class ProductServiceImpl implements ProductService {
     public long getProductsCount() {
         return productRepository.count();
     }
+
+    @Override
+    public List<CategoryCountDto> getCategoryCounts() {
+        Map<ProductCategory, Long> categoryCounts = productRepository.getCategoryCounts();
+        return categoryCounts.entrySet().stream()
+                .map(entry -> new CategoryCountDto(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toList());
+    }
+
+
 }
