@@ -10,6 +10,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.AllArgsConstructor;
 import org.obs.dto.LoginDto;
+import org.obs.exception.InvalidCredentialsException;
 import org.obs.model.Agent;
 import org.obs.service.AgentService;
 
@@ -27,17 +28,12 @@ public class LoginController {
     @Path("/login")
     @PermitAll
     public Response login(@Valid final LoginDto loginDto) {
-        if (agentService.checkUserCredentials(loginDto.getUsername(), loginDto.getPassword())) {
-            Agent agent = agentService.findByUsername(loginDto.getUsername());
-            String token = agentService.generateJwtToken(agent);
-            return Response
-                    .ok()
-                    .entity(Map.of("access-token", token))
-                    .build();
-        } else {
-            return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid credentials").build();
-        }
+        agentService.checkUserCredentials(loginDto.getUsername(), loginDto.getPassword());
+        Agent agent = agentService.findByUsername(loginDto.getUsername());
+        String token = agentService.generateJwtToken(agent);
+        return Response
+                .ok()
+                .entity(Map.of("access-token", token))
+                .build();
     }
-
-
 }

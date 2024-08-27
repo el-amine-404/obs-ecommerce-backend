@@ -5,6 +5,8 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.obs.dto.ShoppingCartItemResponseDto;
 import org.obs.dto.ShoppingCartResponseDto;
+import org.obs.exception.ProductQuantityException;
+import org.obs.exception.ProductStatusException;
 import org.obs.model.Product;
 import org.obs.model.ProductStatus;
 import org.obs.model.ShoppingCart;
@@ -43,6 +45,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public void deleteShoppingCart(long id) {
         ShoppingCart shoppingCart = shoppingCartRepository.findByIdOptional(id).orElseThrow(() -> new RuntimeException("ShoppingCart not found"));
+//        ShoppingCart shoppingCart = shoppingCartRepository.findByIdOptional(id).orElseThrow(() -> new Resourcenot);
         shoppingCartRepository.delete(shoppingCart);
     }
 
@@ -55,13 +58,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         Product product = productRepository.findByIdOptional(productId).orElseThrow(() -> new RuntimeException("Product not found"));
 
         if (product.getStatus() == ProductStatus.UNAVAILABLE) {
-            throw new RuntimeException("Product is not available");
+            throw new ProductStatusException("Product is not available");
         } else if (product.getStatus() == ProductStatus.ONDEMAND) {
-            throw new RuntimeException("Product is on demand");
+            throw new ProductStatusException("Product is on demand");
         }
 
         if (quantity > product.getQuantityStock()) {
-            throw new RuntimeException("Not enough stock");
+            throw new ProductQuantityException("Not enough stock");
         }
 
 

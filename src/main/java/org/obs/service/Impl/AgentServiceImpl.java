@@ -9,6 +9,7 @@ import org.eclipse.microprofile.jwt.Claims;
 import org.obs.dto.AgentResponseDto;
 import org.obs.dto.ShoppingCartResponseDto;
 import org.obs.exception.AgentNotFoundException;
+import org.obs.exception.InvalidCredentialsException;
 import org.obs.model.Agent;
 import org.obs.model.ShoppingCart;
 import org.obs.repository.AgentRepository;
@@ -54,6 +55,9 @@ public class AgentServiceImpl implements AgentService {
 
     public boolean checkUserCredentials(String username, String password) {
         final Agent agent = this.findByUsername(username);
+        if (!BcryptUtil.matches(password, agent.getPassword())){
+            throw new InvalidCredentialsException("Invalid credentials! username or password incorrect");
+        }
         return BcryptUtil.matches(password, agent.getPassword());
     }
 
