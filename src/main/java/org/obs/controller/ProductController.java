@@ -12,6 +12,7 @@ import org.obs.dto.ProductResponseDto;
 import org.obs.service.ProductService;
 
 import java.net.URI;
+import java.util.List;
 
 @Path("/api/v1/product")
 @Produces(MediaType.APPLICATION_JSON)
@@ -30,13 +31,23 @@ public class ProductController {
 
     @GET
     public Response getAll(@QueryParam("category") String category, @QueryParam("status") String status){
-        return Response.ok(productService.getAllProducts(category, status)).build();
+        String baseUri = uriInfo.getBaseUri().toString();
+        String imageFolder = "images/products/";
+        List<ProductResponseDto> productResponseDtoList = productService.getAllProducts(category, status);
+
+        productResponseDtoList.forEach(e -> e.setImage(baseUri + imageFolder + e.getImage()));
+
+        return Response.ok(productResponseDtoList).build();
     }
 
     @GET
     @Path("/{id:[0-9]+}")
     public Response getById(Long id){
-        return Response.ok(productService.getProductById(id)).build();
+        String baseUri = uriInfo.getBaseUri().toString();
+        String imageFolder = "images/products/";
+        ProductResponseDto product = productService.getProductById(id);
+        product.setImage(baseUri + imageFolder + product.getImage());
+        return Response.ok(product).build();
     }
 
     @POST
@@ -45,7 +56,7 @@ public class ProductController {
         URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(createdProduct.getId())).build();
         return Response.created(uri).build();
     }
-
+    
     @DELETE
     @Path("/{id:[0-9]+}")
     public Response delete(@PathParam("id") Long id){
